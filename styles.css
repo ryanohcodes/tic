@@ -14,7 +14,7 @@ body{
     display: flex;
 }
 
-.box {
+.box{
     width: 40px;
     height: 40px;
     border: 2px solid red;
@@ -23,6 +23,7 @@ body{
     align-items: center;
 }
 
-.xxx::before {
-    Content: "X";
+.filler{
+    color: white;
 }
+
