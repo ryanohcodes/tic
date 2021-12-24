@@ -5,6 +5,8 @@ const players = function(name, marker) {
 
 const playerOne = players("Player 1", "X");
 const playerTwo = players("Player 2", "O");
+let a = 0;
+let b = '';
 //actual creation of players
 
 
@@ -35,7 +37,7 @@ const gameBoard = (()=>{
     let box = document.querySelectorAll('.box');
     for (let i =0; i < box.length; i++){
         box[i].addEventListener('click', ()=>{
-            if (box[i].textContent == false){
+            if (a == 0 && box[i].textContent == ''){
                 let t = document.createTextNode(game.activePlayer.marker);
                 box[i].appendChild(t);
                 let dataId = parseInt(box[i].dataset.id);
@@ -50,18 +52,16 @@ const gameBoard = (()=>{
 
     function finshGame() {
         let box = document.querySelectorAll('.box');
-        for (let i = 0; i < board.length; i++){
-            if (box[i].textContent == false){
-                box[i].classList.add('filler');
-                box[i].textContent = '.';
-            }
-        }
         let message = document.getElementById('message');
         let t = document.createTextNode(`Congratulations ${game.activePlayer.name}`);
+        if (b == 'tie'){
+            t = document.createTextNode(`Tie Game!`);
+        } 
         message.appendChild(t);
+        a = 1;
         const button = document.createElement('button');
+        button.textContent = "Reset";
         message.appendChild(button);
-        buttonSelector = document.querySelector('button');
         button.addEventListener('click', ()=>{
             for (let i = 0; i < board.length; i++){
                 box[i].textContent = '';
@@ -70,6 +70,7 @@ const gameBoard = (()=>{
             message.removeChild(t);
             game.openSpaces = board.length;
             game.activePlayer = playerOne;
+            a = 0;
             for (let i = 0; i<board.length; i++){
                 board.splice(i,1,'');
                 box[i].classList.remove('filler');
@@ -117,7 +118,9 @@ const game = (() => {
                 gameBoard.finshGame();
             } else if (game.openSpaces == 0){
                 console.log('Tie Game');
-            }
+                b = 'tie';
+                gameBoard.finshGame();
+            }   
         
     }
 

@@ -27,3 +27,7 @@ body{
     color: white;
 }
 
+button {
+    width: 50px;
+    height: 25px;
+}
